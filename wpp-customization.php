@@ -26,9 +26,9 @@ class wpp_customize{
         global $wpp_options;
         
         $wpp_options = get_option('wpp_options');				
-		//custom styles	
+		//custom styles	for admin
 		add_action('admin_enqueue_scripts',array(&$this,'wpp_custom_styles'));			
-		//Wp Core Update
+		//Disable Wordpress Core Update
 		if($wpp_options['wpp_core_update']==1){					
 			add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );		
 			add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );			
@@ -39,8 +39,7 @@ class wpp_customize{
 			add_filter( 'pre_site_transient_update_plugins', create_function( '$a', "return null;" ) );			
 		}		
 		//Hide Admin bar
-		if($wpp_options['wpp_admin_bar']==1){		
-			
+		if($wpp_options['wpp_admin_bar']==1){					
 			add_filter('show_admin_bar', '__return_false');
 			
 		}		
